@@ -241,7 +241,7 @@ extension BookStore {
     func addToLibrary(_ entry: PluginEntry) {
         guard let project else { return }
         let added = libraryChange {
-            entry.isURL ? try PluginLibrary.add(url: entry.source)
+            _ = entry.isURL ? try PluginLibrary.add(url: entry.source)
                 : try PluginLibrary.add(file: project.url(for: BookProject.normalized(entry.source)))
         }
         if added { notice = Notice(message: "Added \(entry.fileName) to your plugin library", change: nil) }

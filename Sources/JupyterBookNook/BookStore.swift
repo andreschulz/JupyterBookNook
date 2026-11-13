@@ -1275,9 +1275,10 @@ final class BookStore {
 
     private func registerUndo(of change: StructuralChange, actionName: String, undoManager: UndoManager?) {
         guard let undoManager else { return }
-        undoManager.registerUndo(withTarget: self) { [weak undoManager] store in
+        let manager = WeakUndoManager(undoManager)
+        undoManager.registerUndo(withTarget: self) { store in
             // Undo and redo run on the main thread, from the Edit menu or ⌘Z.
-            MainActor.assumeIsolated { store.undo(change, actionName: actionName, undoManager: undoManager) }
+            MainActor.assumeIsolated { store.undo(change, actionName: actionName, undoManager: manager.value) }
         }
         undoManager.setActionName(actionName)
     }
@@ -1326,5 +1327,15 @@ enum SidebarDrag {
 
     static func filePath(_ item: String) -> String? {
         item.hasPrefix("file:") ? String(item.dropFirst(5)) : nil
+    }
+}
+
+/// Hands the undo manager to an undo handler without keeping it alive. UndoManager declares the
+/// handler `@Sendable`, but it only ever runs on the main thread, where the manager lives.
+private final class WeakUndoManager: @unchecked Sendable {
+    weak var value: UndoManager?
+
+    init(_ value: UndoManager) {
+        self.value = value
     }
 }

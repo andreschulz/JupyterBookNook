@@ -277,7 +277,7 @@ enum BookStyler {
     }
 
     /// How far the text of a box is indented per level of nesting.
-    static let boxInset: CGFloat = 16
+    nonisolated static let boxInset: CGFloat = 16
 
     /// Indents every paragraph in `range` into a box `depth` levels deep, keeping the rest of its style.
     static func indent(_ range: NSRange, depth: Int, in storage: NSTextStorage) {

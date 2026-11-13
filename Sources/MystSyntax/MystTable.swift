@@ -483,7 +483,9 @@ public enum MystTables {
         let (options, start) = options(lines: lines, after: open, close: close, in: ns)
         var first = start
         while first < close, ns.substring(with: lines[first].content).trimmingCharacters(in: .whitespaces).isEmpty { first += 1 }
-        guard first < close, var (table, last) = pipeTable(lines: lines, at: first, in: ns), last < close else { return nil }
+        guard first < close, let found = pipeTable(lines: lines, at: first, in: ns), found.1 < close else { return nil }
+        var table = found.0
+        let last = found.1
         for line in (last + 1)..<close where !ns.substring(with: lines[line].content).trimmingCharacters(in: .whitespaces).isEmpty { return nil }
         let parts = directiveParts(lines, open, in: ns)
         table.indent = parts.indent

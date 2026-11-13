@@ -124,8 +124,9 @@ final class EditorSettings {
 
     // MARK: Colours
 
-    /// Code on a tinted background, in light and dark mode.
-    static let defaultCodeBackground = NSColor(name: nil) { appearance in
+    /// Code on a tinted background, in light and dark mode. A dynamic colour never changes after it is
+    /// made, so built-in themes may read it from any thread.
+    nonisolated static let defaultCodeBackground = NSColor(name: nil) { appearance in
         appearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
             ? NSColor.white.withAlphaComponent(0.06)
             : NSColor.black.withAlphaComponent(0.045)
