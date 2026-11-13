@@ -1,0 +1,13 @@
+# Sample book for trying JupyterBookNook.
+version: 1
+project:
+  title: Optimisation Notes
+  license: CC-BY-4.0
+  toc:
+    - file: intro.md
+    - title: Part I · Foundations
+      children:
+        - file: calculus.md
+        - file: gradient-descent.md
+site:
+  template: book-theme

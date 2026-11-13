@@ -1,0 +1,30 @@
+# Swift / Xcode build output
+.build/
+.swiftpm/
+DerivedData/
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+xcuserdata/
+dist/
+
+# MyST / Jupyter Book build output and local toolchains (e.g. in Examples/)
+_build/
+node_modules/
+.venv/
+venv/
+
+# macOS and editors
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# Local settings and secrets
+.env
+.env.*
+*.local
+.claude/settings.local.json
+
+# Private books and other personal projects: keep them outside this folder,
+# or put them in private/, which is never committed.
+private/
